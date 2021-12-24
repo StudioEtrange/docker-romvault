@@ -6,7 +6,7 @@ The GUI of the application is accessed through a modern web browser (no installa
 
 ---
 
-    [![Romvault](https://www.romvault.com/graphics/romvaultTZ.png)](https://www.romvault.com/)
+[![Romvault](https://www.romvault.com/graphics/romvaultTZ.png)](https://www.romvault.com/)]
 
 ROMVault is a ROM manager
 
