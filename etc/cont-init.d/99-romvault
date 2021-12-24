@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv sh
+#shellcheck shell=sh
+
+# make a symbolic link so we can access to the whole conteiner files from the windows emulated GUI
+ln -s / /config/computer
+chown -v app:app /config/computer
