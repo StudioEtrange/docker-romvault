@@ -1,5 +1,22 @@
-FROM jlesage/baseimage-gui:debian-10-v3.5.7
+FROM ghcr.io/linuxserver/baseimage-guacgui
+# ubuntu bionic
 
+# set version label
+LABEL maintainer="StudioEtrange <sboucault@gmail.com>"
+
+# environment settings
+ARG DEBIAN_FRONTEND="noninteractive"
+ENV PYTHONIOENCODING=utf-8
+ENV APPNAME="ROMVault" UMASK_SET="022"
+
+# default versions
+# pick versions at build time like "3.4.4" from https://www.romvault.com/
+ARG ROMVAULT_VERSION="latest"
+ARG RVCMD_VERSION="latest"
+
+
+ENV ROMVAULT_VERSION="${ROMVAULT_VERSION}"
+ENV RVCMD_VERSION="${RVCMD_VERSION}"
 
 
 RUN set -x && \
@@ -16,7 +33,7 @@ RUN set -x && \
         && \
     # https://www.mono-project.com/download/stable/#download-lin
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    echo "deb https://download.mono-project.com/repo/ubuntu stable-buster main" | tee /etc/apt/sources.list.d/mono-official-stable.list && \
+    echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list && \
     apt update && \
     apt-get install -y --no-install-recommends \
         # problem with netstandard 2.0 https://github.com/mono/mono/issues/17148
@@ -25,20 +42,22 @@ RUN set -x && \
         mono-complete
 
 # Get latest version of ROMVault windows binary & RVCmd linux binary
-RUN ROMVAULT_DOWNLOAD=$(curl -kLs 'https://www.romvault.com' | \
+RUN if [ "$ROMVAULT_VERSION" = "latest" ]; then FILTER='head -1'; else FILTER="grep $ROMVAULT_VERSION"; fi && \
+    ROMVAULT_DOWNLOAD=$(curl -kLs 'https://www.romvault.com' | \
         sed -n 's/.*href="\([^"]*\).*/\1/p' | \
         grep -i download | \
         grep -i romvault | \
         sort -r -f -u | \
-        head -1) \
+        $FILTER) \
         && \
+    if [ "$RVCMD_VERSION" = "latest" ]; then FILTER='head -1'; else FILTER="grep $RVCMD_VERSION"; fi && \
     RVCMD_DOWNLOAD=$(curl -kLs 'https://www.romvault.com' | \
         sed -n 's/.*href="\([^"]*\).*/\1/p' | \
         grep -i download | \
         grep -i rvcmd | \
         grep -i linux | \
         sort -r -f -u | \
-        head -1) \
+        $FILTER) \
         && \
     # Document Versions
     echo "romvault" $(basename --suffix=.zip $ROMVAULT_DOWNLOAD | cut -d "_" -f 2) >> /VERSIONS && \
@@ -56,10 +75,9 @@ RUN rm -rf /opt/romvault_downloads && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-COPY startapp.sh /startapp.sh
-COPY etc/ /etc/
 
-ENV APP_NAME="ROMVault"
+# add local files
+COPY root/ /
 
 
 
