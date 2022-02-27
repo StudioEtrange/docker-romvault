@@ -19,7 +19,7 @@ The architectures supported by this image are:
 
 
 See available tags here
-  * [studioetrange/docker-romvault](https://hub.docker.com/repository/docker/studioetrange/romvault)
+  * [studioetrange/docker-romvault](https://hub.docker.com/r/studioetrange/docker-romvault)
   * [ghcr.io/studioetrange/docker-romvault](https://github.com/StudioEtrange/docker-romvault/pkgs/container/docker-romvault)
 
 
@@ -36,7 +36,7 @@ Compatible with docker-compose v2 schemas.
 version: "2.1"
 services:
   calibre:
-    image: studioetrange/docker-romvault
+    image: ghcr.io/studioetrange/docker-romvault
     container_name: romvault
     environment:
       - PUID=1000
@@ -68,7 +68,7 @@ docker run -d \
   -p 3389:3389 \
   -v /path/to/data:/config \
   --restart unless-stopped \
-  studioetrange/docker-romvault
+  ghcr.io/studioetrange/docker-romvault
 ```
 
 
