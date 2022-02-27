@@ -9,6 +9,8 @@ jobs:
         name: build and release docker images
         runs-on: ubuntu-latest
         steps:
+          - name: checkout code
+            uses: actions/checkout@v2
           - name: determine image version tag
             id: image_tag
             run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
