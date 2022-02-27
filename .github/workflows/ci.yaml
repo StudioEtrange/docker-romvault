@@ -27,5 +27,5 @@ jobs:
               password: ${{ secrets.GITHUB_TOKEN }}
           - name: Push
             run: |
-              docker push ghcr.io/studioetrange/romvault:${{ steps.image_tag.outputs.tag }}
-              docker push studioetrange/romvault:${{ steps.image_tag.outputs.tag }}
+              docker push ghcr.io/studioetrange/docker-romvault:${{ steps.image_tag.outputs.tag }}
+              docker push studioetrange/docker-romvault:${{ steps.image_tag.outputs.tag }}

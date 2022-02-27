@@ -1,12 +1,13 @@
 # [studioetrange/romvault](https://github.com/studioetrange/docker-romvault)
 
-[ROMVault](https://www.romvault.com/) is ROMVault is a ROM manager
+[ROMVault](https://www.romvault.com/) is a ROM manager
 
 [![Romvault](https://www.romvault.com/graphics/romvaultTZ.png)](https://www.romvault.com/)]
 
-This image is based on LinuxServer.io](https://linuxserver.io) images system.
+This image is based on {LinuxServer.io](https://linuxserver.io) images system.
+[![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_forum.png)](https://linuxserver.io)
 
-[![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_medium.png)](https://linuxserver.io)
+This image contains ROMVault and RVCMD binaries.
 
 ## Supported Architectures
 
@@ -15,6 +16,11 @@ The architectures supported by this image are:
 | Architecture | Tag |
 | :----: | --- |
 | x86-64 | latest |@
+
+
+See available tags here
+  * [studioetrange/docker-romvault](https://hub.docker.com/repository/docker/studioetrange/romvault)
+  * [ghcr.io/studioetrange/docker-romvault](https://github.com/StudioEtrange/docker-romvault/pkgs/container/docker-romvault)
 
 
 ## Usage
@@ -30,7 +36,7 @@ Compatible with docker-compose v2 schemas.
 version: "2.1"
 services:
   calibre:
-    image: studioetrange/romvault
+    image: studioetrange/docker-romvault
     container_name: romvault
     environment:
       - PUID=1000
@@ -62,7 +68,7 @@ docker run -d \
   -p 3389:3389 \
   -v /path/to/data:/config \
   --restart unless-stopped \
-  studioetrange/romvault
+  studioetrange/docker-romvault
 ```
 
 
@@ -130,7 +136,7 @@ cd docker-romvault
 docker build \
   --no-cache \
   --pull \
-  -t studioetrange/romvault:latest .
+  -t studioetrange/docker-romvault:latest .
 ```
 
 If you want to pick a romvaul version use build args `ROMVAULT_VERSION` and `RVCMD_VERSION` and pick versions on https://www.romvault.com/
@@ -142,7 +148,7 @@ docker build \
   --pull \
   --build-arg ROMVAULT_VERSION=3.4.4 \
   --build-arg RVCMD_VERSION=3.4.2 \
-  -t studioetrange/romvault:3.4.4 .
+  -t studioetrange/docker-romvault:3.4.4 .
 ```
 
 
